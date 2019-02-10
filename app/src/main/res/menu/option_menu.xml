@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/cache"
+        android:title="Delete local cache" />
+
+    <item android:id="@+id/sort"
+        android:title="Sort movie List"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/alphabetic" android:title="Alphabetic" />
+            <item android:id="@+id/alphabeticR" android:title="Alphabetic (Reverse)" />
+            <item android:id="@+id/year" android:title="Oldest first" />
+            <item android:id="@+id/yearR" android:title="Newest first" />
+        </menu>
+    </item>
+
+</menu>

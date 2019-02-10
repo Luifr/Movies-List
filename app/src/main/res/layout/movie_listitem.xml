@@ -13,7 +13,7 @@
         android:layout_alignTop="@+id/movieImage"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="13dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/movieImage"
         android:layout_toRightOf="@+id/movieImage"
         android:text="The Shawshank"
@@ -40,7 +40,7 @@
         android:layout_alignLeft="@+id/movieTitle"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:text="Genres" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_alignLeft="@+id/movieTitle"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="9/10" />
 
 </RelativeLayout>
