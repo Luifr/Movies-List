@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movieItemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="163dp">
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/movieImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/movieImage"
+        android:layout_toRightOf="@+id/movieImage"
+        android:text="The Shawshank"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/movieImage"
+        android:layout_width="94dp"
+        android:layout_height="135dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="14dp"
+        app:srcCompat="@drawable/movie_poster" />
+
+    <TextView
+        android:id="@+id/movieGenres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/movieTitle"
+        android:layout_alignStart="@+id/movieTitle"
+        android:layout_alignLeft="@+id/movieTitle"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="15dp"
+        android:text="Genres" />
+
+    <TextView
+        android:id="@+id/movieRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/movieGenres"
+        android:layout_alignStart="@+id/movieTitle"
+        android:layout_alignLeft="@+id/movieTitle"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="15dp"
+        android:text="9/10" />
+
+</RelativeLayout>
