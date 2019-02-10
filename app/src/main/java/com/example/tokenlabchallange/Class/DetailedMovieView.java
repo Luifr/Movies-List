@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +49,7 @@ public class DetailedMovieView {
 
         Glide.with(mContext).load(movie.poster_url).into(holder.movieImage);
 
+        holder.loading.setVisibility(View.GONE);
 
     }
 
@@ -56,6 +58,7 @@ public class DetailedMovieView {
         ConstraintLayout layout;
         TextView movieTitle,movieGenres,movieRating,movieDescription;
         ImageView movieImage;
+        ProgressBar loading;
 
         public DetailedMovieViewHolder(@NonNull View itemView) {
             movieImage = itemView.findViewById(R.id.movieImageD);
@@ -63,8 +66,11 @@ public class DetailedMovieView {
             movieGenres = itemView.findViewById(R.id.movieGenresD);
             movieRating = itemView.findViewById(R.id.movieRatingD);
             movieDescription = itemView.findViewById(R.id.movieDescription);
+
+            loading = itemView.findViewById(R.id.movieLoading);
             layout = itemView.findViewById(R.id.movieItemViewD);
-            
+
+            loading.setIndeterminate(true);
 
         }
     }
