@@ -2,6 +2,7 @@ package com.example.tokenlabchallange;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -67,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         Movie[] movies = gson.fromJson(jsonMovies, collectionType);
         RecyclerView listViewer = findViewById(R.id.movieListContainer);
         listViewer.setHasFixedSize(true);
-        listViewer.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
+        listViewer.setLayoutManager(lm);
 
         Arrays.sort(movies, new Comparator<Movie>() {
             @Override
@@ -78,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         MovieAdapter mAdapter = new MovieAdapter(this, movies);
         listViewer.setAdapter(mAdapter);
+
+        listViewer.addItemDecoration(new DividerItemDecoration(listViewer.getContext(),((LinearLayoutManager) lm).getOrientation()));
+
     }
 
 }

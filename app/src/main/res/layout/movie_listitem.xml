@@ -52,7 +52,7 @@
         android:layout_alignLeft="@+id/movieTitle"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:text="9/10" />
 
 </RelativeLayout>
