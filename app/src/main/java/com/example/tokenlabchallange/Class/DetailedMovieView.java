@@ -48,10 +48,6 @@ public class DetailedMovieView {
 
         Glide.with(mContext).load(movie.poster_url).into(holder.movieImage);
 
-        for (int i = 0; i < holder.layout.getChildCount(); i++) {
-            View child = holder.layout.getChildAt(i);
-            child.setVisibility(View.VISIBLE);
-        }
 
     }
 
@@ -68,11 +64,7 @@ public class DetailedMovieView {
             movieRating = itemView.findViewById(R.id.movieRatingD);
             movieDescription = itemView.findViewById(R.id.movieDescription);
             layout = itemView.findViewById(R.id.movieItemViewD);
-
-//            for (int i = 0; i < layout.getChildCount(); i++) {
-//                View child = layout.getChildAt(i);
-//                child.setVisibility(View.INVISIBLE);
-//            }
+            
 
         }
     }

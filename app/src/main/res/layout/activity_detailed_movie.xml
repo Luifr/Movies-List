@@ -16,7 +16,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Title title title"
         android:textAllCaps="false"
         android:textSize="22sp"
         android:textStyle="italic"
@@ -30,8 +29,7 @@
         android:layout_height="236dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/movieTitleD"
-        app:layout_constraintTop_toBottomOf="@+id/movieTitleD"
-        app:srcCompat="@drawable/movie_poster" />
+        app:layout_constraintTop_toBottomOf="@+id/movieTitleD" />
 
     <TextView
         android:id="@+id/movieGenresD"
@@ -42,7 +40,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Horror | Genres"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movieImageD"
         app:layout_constraintTop_toTopOf="@+id/movieImageD" />
@@ -52,7 +49,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="9/10"
         app:layout_constraintEnd_toEndOf="@+id/movieGenresD"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/movieGenresD"
@@ -65,7 +61,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/movieImageD"
         app:layout_constraintTop_toBottomOf="@+id/movieImageD" />
