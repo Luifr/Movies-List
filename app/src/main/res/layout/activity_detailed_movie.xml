@@ -1,79 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/movieItemViewD"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailedMovieActivity">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/movieTitleD"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/movieItemViewD"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:textAllCaps="false"
-        android:textSize="22sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".DetailedMovieActivity">
 
-    <ImageView
-        android:id="@+id/movieImageD"
-        android:layout_width="159dp"
-        android:layout_height="236dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/movieTitleD"
-        app:layout_constraintTop_toBottomOf="@+id/movieTitleD" />
+        <ProgressBar
+            android:id="@+id/movieLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="76dp"
+            android:layout_height="79dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/movieGenresD"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/movieImageD"
-        app:layout_constraintTop_toTopOf="@+id/movieImageD" />
 
-    <TextView
-        android:id="@+id/movieRatingD"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/movieGenresD"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/movieGenresD"
-        app:layout_constraintTop_toBottomOf="@+id/movieGenresD" />
+        <TextView
+            android:id="@+id/movieTitleD"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Movie Title"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/movieDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/movieImageD"
-        app:layout_constraintTop_toBottomOf="@+id/movieImageD" />
+        <ImageView
+            android:id="@+id/movieImageD"
+            android:layout_width="159dp"
+            android:layout_height="236dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/movieTitleD"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitleD"
+            tools:srcCompat="@drawable/movie_poster" />
 
-    <ProgressBar
-        android:id="@+id/movieLoading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="76dp"
-        android:layout_height="79dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/movieGenresD"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Genres:  Terror | Action"
+            app:layout_constraintEnd_toEndOf="@+id/movieDescription"
+            app:layout_constraintStart_toStartOf="@+id/movieDescription"
+            app:layout_constraintTop_toBottomOf="@+id/movieDescription" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/movieRatingD"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="7/10"
+            app:layout_constraintEnd_toEndOf="@+id/movieTagLine"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/movieTagLine"
+            app:layout_constraintTop_toBottomOf="@+id/movieTagLine" />
+
+        <TextView
+            android:id="@+id/movieDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieInfo" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#808080"
+            app:layout_constraintBottom_toBottomOf="@+id/movieInfo"
+            app:layout_constraintEnd_toStartOf="@+id/movieInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/movieInfo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#808080"
+            app:layout_constraintBottom_toBottomOf="@+id/movieInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movieInfo"
+            app:layout_constraintTop_toTopOf="@+id/movieInfo" />
+
+        <TextView
+            android:id="@+id/movieInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Movie Info"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieImageD" />
+
+        <TextView
+            android:id="@+id/movieRuntime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Runtime:  90 min"
+            app:layout_constraintEnd_toEndOf="@+id/movieGenresD"
+            app:layout_constraintStart_toStartOf="@+id/movieGenresD"
+            app:layout_constraintTop_toBottomOf="@+id/movieGenresD" />
+
+        <TextView
+            android:id="@+id/movieTagLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:text="dummy text dummy test dummy text"
+            app:layout_constraintEnd_toEndOf="@+id/movieTitleD"
+            app:layout_constraintStart_toEndOf="@+id/movieImageD"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitleD" />
+
+        <TextView
+            android:id="@+id/movieStudio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Studio:  Universal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/movieRuntime"
+            app:layout_constraintStart_toStartOf="@+id/movieRuntime"
+            app:layout_constraintTop_toBottomOf="@+id/movieRuntime"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Constraints;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,10 +35,9 @@ public class DetailedMovieView {
     }
 
     public void SetViews(){
-        holder.movieTitle.setText(movie.title + "  (" + movie.release_date.split("-")[0] + ")");
-        holder.movieRating.setText(movie.vote_average + "/10");
-        holder.movieDescription.setText(movie.overview);
-        holder.movieDescription.setMovementMethod(new ScrollingMovementMethod());
+
+        SpannableStringBuilder str = new SpannableStringBuilder("Genres:");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         String genres = "";
         int len = movie.genres.length-1;
@@ -44,8 +45,28 @@ public class DetailedMovieView {
             genres += movie.genres[j] + " | ";
         }
         genres += movie.genres[len];
+        str = str.append("  " + genres);
 
-        holder.movieGenres.setText(genres);
+        holder.movieGenres.setText(str);
+
+        str = new SpannableStringBuilder("Runtime:");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        str = str.append("  " + movie.runtime + " minutes");
+        holder.movieRuntime.setText(str);
+
+        if(movie.production_companies != null && movie.production_companies.length >= 1){
+            str = new SpannableStringBuilder("Studio:");
+            str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            str = str.append("  " + movie.production_companies[0].name);
+            holder.movieStudio.setText(str);
+        }
+
+        holder.movieTagline.setText(movie.tagline);
+        holder.movieRating.setText(movie.vote_average + "/10");
+        holder.movieTitle.setText(movie.title + "  (" + movie.release_date.split("-")[0] + ")");
+        holder.movieDescription.setText(movie.overview);
+        holder.movieDescription.setMovementMethod(new ScrollingMovementMethod());
+
 
         Glide.with(mContext).load(movie.poster_url).into(holder.movieImage);
 
@@ -56,7 +77,7 @@ public class DetailedMovieView {
     public class DetailedMovieViewHolder {
 
         ConstraintLayout layout;
-        TextView movieTitle,movieGenres,movieRating,movieDescription;
+        TextView movieTitle,movieGenres,movieRating,movieDescription,movieTagline,movieStudio,movieRuntime;
         ImageView movieImage;
         ProgressBar loading;
 
@@ -64,6 +85,9 @@ public class DetailedMovieView {
             movieImage = itemView.findViewById(R.id.movieImageD);
             movieTitle = itemView.findViewById(R.id.movieTitleD);
             movieGenres = itemView.findViewById(R.id.movieGenresD);
+            movieRuntime = itemView.findViewById(R.id.movieRuntime);
+            movieTagline = itemView.findViewById(R.id.movieTagLine);
+            movieStudio = itemView.findViewById(R.id.movieStudio);
             movieRating = itemView.findViewById(R.id.movieRatingD);
             movieDescription = itemView.findViewById(R.id.movieDescription);
 
