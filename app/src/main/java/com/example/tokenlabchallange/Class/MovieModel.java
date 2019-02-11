@@ -1,24 +1,14 @@
 package com.example.tokenlabchallange.Class;
 
 import android.content.Context;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
-import com.example.tokenlabchallange.Class.MoviePresenter.MovieReady;
 import com.example.tokenlabchallange.Inteface.VoidListener;
-import com.example.tokenlabchallange.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -26,9 +16,6 @@ import org.json.JSONArray;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class MovieModel {
 
@@ -37,8 +24,8 @@ public class MovieModel {
     private Movie[] movies;
     Context mContext;
 
-    public MovieModel(Context mContext, VoidListener mr){
-        movieReady = mr;
+    public MovieModel(Context mContext, VoidListener listener){
+        movieReady = listener;
         this.mContext = mContext;
         SetMovies();
     }
