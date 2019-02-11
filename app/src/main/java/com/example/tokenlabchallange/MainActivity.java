@@ -45,4 +45,10 @@ public class MainActivity extends AppCompatActivity implements VoidListener {
     public void CallBack() {
         loading.setVisibility(View.GONE);
     }
+
+    @Override
+    public void OnError() {
+        loading.setVisibility(View.GONE);
+        findViewById(R.id.errorText).setVisibility(View.VISIBLE);
+    }
 }

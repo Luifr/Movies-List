@@ -25,6 +25,9 @@ public class MoviePresenter implements VoidListener {
         this.movieRecycler = movieRecycler;
         this.mContext = mContext;
         model = new MovieModel(mContext,this);
+        if(model.GetMovies() != null){
+            InitRecyclerView();
+        }
 
     }
 
@@ -46,6 +49,15 @@ public class MoviePresenter implements VoidListener {
     }
 
     public void ItemSelected(int id){
+
+        if(id == R.id.cache){
+            model.FlushCache();
+            return;
+        }
+
+        if(model.GetMovies() == null)
+            return;
+
         if(id == R.id.alphabetic){
             model.SortMoviesAlphabetically();
         }
@@ -65,5 +77,10 @@ public class MoviePresenter implements VoidListener {
     @Override
     public void CallBack() {
         InitRecyclerView();
+    }
+
+    @Override
+    public void OnError() {
+        ui.OnError();
     }
 }

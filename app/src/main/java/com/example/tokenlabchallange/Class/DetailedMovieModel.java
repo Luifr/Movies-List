@@ -1,102 +1,103 @@
 package com.example.tokenlabchallange.Class;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.Constraints;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.method.ScrollingMovementMethod;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.content.SharedPreferences;
 
-import com.bumptech.glide.Glide;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.tokenlabchallange.Inteface.VoidListener;
+import com.google.gson.Gson;
 
-import com.example.tokenlabchallange.R;
+import org.json.JSONObject;
 
-import java.lang.reflect.Constructor;
+import static android.content.Context.MODE_PRIVATE;
 
 public class DetailedMovieModel {
 
-    Context mContext;
-    View parent_view;
     DetailedMovie movie;
-    DetailedMovieViewHolder holder;
+    Context mContext;
+    String id;
+    VoidListener moviePresenter;
 
-    public DetailedMovieModel(Context mContext, View parent_view , DetailedMovie movie) {
+    public DetailedMovieModel(Context mContext, String id, VoidListener moviePresenter) {
         this.mContext = mContext;
-        this.movie = movie;
-        this.parent_view = parent_view;
-        this.holder = new DetailedMovieViewHolder(parent_view);
-        SetViews();
+        this.id = id;
+        this.moviePresenter = moviePresenter;
+        SetMovie();
     }
 
-    public void SetViews(){
-
-        SpannableStringBuilder str = new SpannableStringBuilder("Genres:");
-        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        String genres = "";
-        int len = movie.genres.length-1;
-        for (int j=0; j < len ; j++){
-            genres += movie.genres[j] + " | ";
+    void SetMovie(){
+        if(!GetMovieInCache()){
+            GetMovieFromWeb();
         }
-        genres += movie.genres[len];
-        str = str.append("  " + genres);
+    }
 
-        holder.movieGenres.setText(str);
+    public DetailedMovie GetMovie(){
+        return movie;
+    }
 
-        str = new SpannableStringBuilder("Runtime:");
-        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        str = str.append("  " + movie.runtime + " minutes");
-        holder.movieRuntime.setText(str);
+    void GetMovieFromWeb(){
 
-        if(movie.production_companies != null && movie.production_companies.length >= 1){
-            str = new SpannableStringBuilder("Studio:");
-            str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, str.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            str = str.append("  " + movie.production_companies[0].name);
-            holder.movieStudio.setText(str);
-        }
+        String moviesURL = "https://desafio-mobile.nyc3.digitaloceanspaces.com/movies/" + id;
 
-        holder.movieTagline.setText(movie.tagline);
-        holder.movieRating.setText(movie.vote_average + "/10");
-        holder.movieTitle.setText(movie.title + "  (" + movie.release_date.split("-")[0] + ")");
-        holder.movieDescription.setText(movie.overview);
-        holder.movieDescription.setMovementMethod(new ScrollingMovementMethod());
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                JsonObjectRequest.Method.GET,
+                moviesURL,
+                null, // parameters
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Gson gson = new Gson();
+                        movie = gson.fromJson(response.toString(), DetailedMovie.class);
+                        moviePresenter.CallBack();
+                        SetMovieInCache();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        moviePresenter.OnError();
+                    }
+                }
+        );
 
-        Glide.with(mContext).load(movie.poster_url).into(holder.movieImage);
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        holder.loading.setVisibility(View.GONE);
+        requestQueue.add(objectRequest);
 
     }
 
-    public class DetailedMovieViewHolder {
+    void SetMovieInCache(){
 
-        ConstraintLayout layout;
-        TextView movieTitle,movieGenres,movieRating,movieDescription,movieTagline,movieStudio,movieRuntime;
-        ImageView movieImage;
-        ProgressBar loading;
+        Gson jsonObj = new Gson();
+        String json = jsonObj.toJson(movie);
 
-        public DetailedMovieViewHolder(@NonNull View itemView) {
-            movieImage = itemView.findViewById(R.id.movieImageD);
-            movieTitle = itemView.findViewById(R.id.movieTitleD);
-            movieGenres = itemView.findViewById(R.id.movieGenresD);
-            movieRuntime = itemView.findViewById(R.id.movieRuntime);
-            movieTagline = itemView.findViewById(R.id.movieTagLine);
-            movieStudio = itemView.findViewById(R.id.movieStudio);
-            movieRating = itemView.findViewById(R.id.movieRatingD);
-            movieDescription = itemView.findViewById(R.id.movieDescription);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("movie", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(id,json);
+        editor.apply();
+    }
 
-            loading = itemView.findViewById(R.id.movieLoading);
-            layout = itemView.findViewById(R.id.movieItemViewD);
+    boolean GetMovieInCache() {
 
-            loading.setIndeterminate(true);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("movie", MODE_PRIVATE);
+        String obj = sharedPreferences.getString(id,"");
 
-        }
+        if(obj.equals(""))
+            return false;
+
+        Gson jsonObj = new Gson();
+        movie = jsonObj.fromJson(obj,DetailedMovie.class);
+
+        return true;
     }
 
 }

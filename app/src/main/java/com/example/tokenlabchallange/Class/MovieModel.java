@@ -1,9 +1,12 @@
 package com.example.tokenlabchallange.Class;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -17,9 +20,11 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MovieModel {
 
-
+    String path = "cache";
     VoidListener movieReady;
     private Movie[] movies;
     Context mContext;
@@ -37,7 +42,6 @@ public class MovieModel {
     }
 
     public Movie[] GetMovies(){
-        while(movies==null);
         return movies;
     }
 
@@ -94,14 +98,24 @@ public class MovieModel {
                     @Override
                     public void onResponse(JSONArray response) {
                         Gson gson = new Gson();
-                        Type collectionType = new TypeToken<Movie[]>() {}.getType();
+                        Type collectionType = new TypeToken<Movie[]>() {
+                        }.getType();
                         movies = gson.fromJson(response.toString(), collectionType);
-                        SetMoviesInCache();
                         movieReady.CallBack();
+                        SetMoviesInCache();
                     }
                 },
-                null
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        movieReady.OnError();
+                    }
+                }
         );
+
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         requestQueue.add(objectRequest);
 
@@ -109,12 +123,32 @@ public class MovieModel {
     }
 
     void SetMoviesInCache(){
-        // TODO
+
+        Gson jsonObj = new Gson();
+        String json = jsonObj.toJson(movies);
+
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("movie", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("movies",json);
+        editor.apply();
     }
 
-    boolean GetMoviesInCache(){
-        // TODO
-        return false;
+    boolean GetMoviesInCache() {
+
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("movie", MODE_PRIVATE);
+        String obj = sharedPreferences.getString("movies","");
+
+        if(obj.equals(""))
+            return false;
+
+        Gson jsonObj = new Gson();
+        movies = jsonObj.fromJson(obj,Movie[].class);
+
+        return true;
+    }
+
+    public void FlushCache(){
+        mContext.getSharedPreferences("movie", MODE_PRIVATE).edit().clear().apply();
     }
 
 

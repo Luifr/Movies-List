@@ -1,6 +1,5 @@
 package com.example.tokenlabchallange.Class;
 
-import java.security.PublicKey;
 
 public class DetailedMovie extends Movie {
     public boolean adult;
