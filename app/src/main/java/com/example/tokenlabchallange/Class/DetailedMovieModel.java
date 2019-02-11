@@ -19,14 +19,14 @@ import com.example.tokenlabchallange.R;
 
 import java.lang.reflect.Constructor;
 
-public class DetailedMovieView {
+public class DetailedMovieModel {
 
     Context mContext;
     View parent_view;
     DetailedMovie movie;
     DetailedMovieViewHolder holder;
 
-    public DetailedMovieView(Context mContext, View parent_view , DetailedMovie movie) {
+    public DetailedMovieModel(Context mContext, View parent_view , DetailedMovie movie) {
         this.mContext = mContext;
         this.movie = movie;
         this.parent_view = parent_view;

@@ -11,7 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tokenlabchallange.Class.DetailedMovie;
-import com.example.tokenlabchallange.Class.DetailedMovieView;
+import com.example.tokenlabchallange.Class.DetailedMovieModel;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -62,7 +62,7 @@ public class DetailedMovieActivity extends AppCompatActivity {
         Gson gson = new Gson();
         DetailedMovie movie = gson.fromJson(jsonMovie, DetailedMovie.class);
 
-        DetailedMovieView dmv = new DetailedMovieView(getApplicationContext(),findViewById(R.id.movieItemViewD),movie);
+        DetailedMovieModel dmm = new DetailedMovieModel(getApplicationContext(),findViewById(R.id.movieItemViewD),movie);
     }
 
 }
